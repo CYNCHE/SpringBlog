@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blog info</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui-2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="./css/me.css">
+</head>
+
+
+<body>
+  <nav class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+      <div class="ui inverted secondary menu">
+        <h2 class="ui teal header item">Blog</h2>
+        <a href="#" class="item"><i class="home icon small"></i>Home Page</a>
+        <a href="#" class="item"><i class="idea icon small"></i>Classification</a>
+        <a href="#" class="item"><i class="tags icon small"></i>Tags</a>
+        <a href="#" class="item"><i class="info icon small"></i>About Me</a>
+        <div class="right item">
+          <div class="ui icon inverted transparent input">
+            <input type="text" placeholder="Search....">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!----------------content----------------->
+  <div class="m-margin-tb-large m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui top attached segment">
+        <div class="ui horizontal list">
+          <div class="item"><img src="https://picsum.photos/100/100?image=88" alt="" class="ui rounded avatar image">
+            Michael
+          </div>
+          <div class="item">
+            <i class="ui calendar icon"></i> 02-04-2018
+          </div>
+          <div class="item">
+            <i class="ui eye icon"></i> 319
+          </div>
+        </div>
+      </div>
+      <!------------------------picture--------------------------->
+      <div class="ui attached segment">
+        <img src="https://picsum.photos/800/450?image=319" alt="Pic unavailable" class="ui rounded fluid image">
+      </div>
+      <!-------------------------blog----------------------------->
+      <div class="ui attached segment">
+        <h2 class="ui center aligned header m-margin-tb-tb">C++ Study</h2>
+        <div class="m-margin-tb-lr">
+          <p  style="text-align: justify">Design is a plan for solving a problem, but leads to
+            multiple solutions.
+            Coupling is degree of interdependence among programming modules.
+            Cohesion is degree of element association within a module.
+            Our goal: High cohesion, low coupling</p>
+          <h4 class="ui header ">C++ is composed of 3 languages:</h4>
+          <p >
+            1. Before compilation, preprocessor language modifies the program<br>
+            2. During compilation, template language adds new type and routines<br>
+            3. During compilation, - C specifies basic declaration and control flow<br>
+            - C++ specifies advanced declaration and control flow
+          </p>
+          <h4 class="ui header ">Beware of overflow:</h4>
+          <p >
+            General assignment operators only evaluate left-hand side once, ex: -=, +=, *=...<br>
+            Bit-shift operators, shift bits in integral variables left and right. (left shift is multiply by 2)
+          </p>
+          <h4 class="ui header ">Exception throw and catch:</h4>
+          <p >
+            Dynamic multi-level exit allows complex forms of transfers among routines, called exception handling.<br>
+            Exception handling is more tan error handling.<br>
+            An exception event is an event that is known to exist but which is ancillary to an algorithm.<br>
+            A routine can explicitly specify if it does or does not have alternate outcomes.
+          </p>
+          <h4 class="ui header">Enumeration:</h4>
+          <p >
+            An enumeration is a type defining a set of named literals with only assignment, comparison, and conversion
+            to
+            integer, ex: enum Days {Mon, Tue, Wed, Thu, Fri, Sat, Sun}<br>
+            First numerator is implicitly numbered 0; thereafter, each is implicitly numbered +1 the previous
+            enumerator.<br>
+            Enumerators can be explicitly numbered: enum{ A = 3, B, C = A - 5, D}<br>
+            Enumerator must be unique in block.
+          </p>
+          <h4 class="ui header"> Pointer & Reference </h4>
+          <div >
+            <p style="text-align: justify;">pointer/reference is a memory address.<br>
+              pointer to a string literal must be const.<br>
+              Difference between pointer and reference is an extra implicit deference<br>
+              Reference is like a constant plain pointer, no reference assignment after declaration,
+              must be initialised when declare, have no address so there is no reference to reference or pointer to
+              reference.
+              If we get the address of a reference, it is actually the address of the object that reference point to.
+              Also, array of references is NOT allowed.<br>
+              Pointer/reference type constructor is NOT distributed across the identifier list.<br>
+              Do not use pointer arithmetic to subscript arrays.<br>
+            </p>
+          </div>
+        </div>
+        <!-------------------------Donate--------------------------->
+        <div class="ui basic center aligned segment">
+          <div class="ui circular red basic button">like</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+</html>

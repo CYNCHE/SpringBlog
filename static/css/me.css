@@ -1,4 +1,103 @@
+
+body {
+    background: url("../images/dust_scratches.png ");
+}
+
+
+
+
+
+/*--------margin-----------*/
+.m-margin-tb-tiny {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.m-margin-tb-lr {
+    margin-left: 6em !important;
+    margin-right: 6em !important;
+}
+
+.m-margin-tb-tb {
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+}
+
+.m-margin-tb-large {
+    margin: auto !important;
+}
+
+.m-margin-header-tb {
+    margin: 0 auto !important;
+}
+
+
+/*------padding configuration-----*/
+
 .m-padded-tb-mini {
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
 }
+
+.m-paddd-tb-tiny {
+    padding-top: 0em !important; 
+}
+
+.m-padded-tb-small {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+
+.m-padded-tb {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.m-padded-tb-large {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
+
+.m-padded-tb-big {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+
+.m-padded-tb-huge {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+
+.m-padded-tb-massive {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important; 
+}
+
+/*------------text-------------*/
+
+.m-text {
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    line-height: 1.5 !important;
+}
+
+
+
+
+
+
+/*--------display----------*/
+.m-inline-block {
+    display: inline-block;
+}
+
+.m-container {
+    max-width: 72em !important;
+    margin: auto !important;
+}
+
+

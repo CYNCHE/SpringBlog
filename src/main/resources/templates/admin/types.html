@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Types Management</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui-2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/me.css" type="text/css" th:href="@{/css/me.css}">
+</head>
+
+
+<body>
+ 
+  <nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+      <div class="ui stackable inverted secondary menu">
+        <h2 class="ui teal header item">Dashboard</h2>
+        <a href="#" th:href="@{/admin/blogs/}" class="item"><i class="active blogger icon small"></i>Blogs</a>
+        <a href="#" th:href="@{/admin/types/}" class="item"><i class="idea icon small"></i>Classification</a>
+        <a href="#" th:href="@{/admin/tags/}" class="item"><i class="tags icon small"></i>Tags</a>
+
+        <div class="right menu">
+          <div class="ui dropdown item">
+            <div class="text">
+              <img src="https://picsum.photos/100/100?image=66" alt="avatar" class="ui avatar image"> Michael
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a href="#" th:href="@{/admin/login}" class="item">Log Out</a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </nav>
+  
+  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="#" th:href="@{/admin/types/input}" class="item">Publish</a>
+        <a href="#" th:href="@{/admin/types}" class="teal active item">Management</a>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="m-margin-tb-large m-padded-tb-big m-small-container">
+    <div class="ui container">
+      <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+      	<i class="close icon"></i>
+      	<p th:text="${message}"></p>
+      </div>
+
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="type,iterStat : ${page.content}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${type.name}">C++ Study</td>
+            <td>
+              <a href="#" th:href="@{/admin/types/{id}/input(id=${type.id})}" class="ui basic mini teal button">Edit</a>
+              <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui basic mini red button">Delete</a>
+            </td>
+          </tr>
+          
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6" >
+              <a href="#" th:href="@{/admin/types/input}" class="ui right floated small primary teal basic button">
+                <i class="blogger small icon"></i> New Tag
+              </a>
+              <div class="ui mini pagination menu" th:if ="${page.totalPages}>1">
+              	<a th:href="@{/admin/types(page=${page.number}-1)}" class="item" th:unless="${page.first}">
+                	Previous
+              	</a>
+              	<a th:href="@{/admin/types(page=${page.number}+1)}" class="item" th:unless="${page.last}">
+                	Next
+              	</a>
+              </div>   
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+      <div class="ui divided inverted grid">
+        <div class="three wide column">
+          <img src="../../static/images/witcher_logo.jpg" class="ui round image" alt="icon" style="width: 100px">
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Recent Blogs</h5>
+          <div class="ui inverted link list">
+            <a href="#" class="item m-padded-tb-tiny" style="margin: 0px;">Merry Christmas!</a>
+            <a href="#" class="item">Happy New Year!</a>
+            <a href="#" class="item">Happy New Year!</a>
+          </div>
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Contact Me</h5>
+          <div class="ui inverted link list">
+            <p class="item m-padded-tb-tiny" style="margin: 0px;">Email: cai@gmail.com</p>
+            <p class="item">Phone: 123456</p>
+          </div>
+        </div>
+        <div class="five wide column center aligned">
+          <h5 class="ui inverted header">Michael Cai</h5>
+          <div class="ui inverted link list">
+            <p class="item">Keep humble, keep thirsty.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <p>May there be enough clouds in your life to make a beautiful sunset.</p>
+    </div>
+  </footer>
+
+
+
+
+</body>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+  $('.ui.dropdown')
+    .dropdown()
+    ;
+  
+  $('.message .close')
+  .on('click', function() {
+	  $(this)
+	  	.closest('.message')
+	  	.transition('fade');
+  });
+  
+  
+  
+  
+  
+  
+</script>
+
+</html>

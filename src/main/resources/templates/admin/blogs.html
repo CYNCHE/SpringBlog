@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui-2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/me.css" type="text/css" th:href="@{/css/me.css}">
+</head>
+
+
+<body>
+  <nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+      <div class="ui stackable inverted secondary menu">
+        <h2 class="ui teal header item">Dashboard</h2>
+        <a href="#" th:href="@{/admin/blogs/}" class="item"><i class="active blogger icon small"></i>Blogs</a>
+        <a href="#" class="item"><i class="idea icon small"></i>Classification</a>
+        <a href="#" class="item"><i class="tags icon small"></i>Tags</a>
+
+        <div class="right menu">
+          <div class="ui dropdown item">
+            <div class="text">
+              <img src="https://picsum.photos/100/100?image=66" alt="avatar" class="ui avatar image"> Michael
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a href="#" class="item">Log Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="#" class="item">Publish</a>
+        <a href="#" class="teal active item">Management</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="m-margin-tb-large m-padded-tb-big m-small-container">
+    <div class="ui container">
+      
+      <div class="ui secondary segment form">
+        <input type="hidden" name="page">
+          <div class="inline fields">
+            <div class="field">
+              <input type="text" name="title" placeholder="Title">
+            </div>
+            <div class="field">
+              <div class="ui labeled action input">
+            	<div class="ui type dropdown selection">
+                <input type="hidden" name="typeId">
+                <i class="dropdown icon"></i>
+                <div class="default text">Classification</div>
+                <div class="menu">
+                  <div th:each="type : ${types}" th:data-value="${type.id}" th:text="${type.name}" class="item" data-value="1">Error Log</div>
+                </div>
+              </div>
+            <button id="clear-btn" class="ui compact button">Clear</button>
+              </div>
+              
+            </div>
+            <div class="field">
+              <div class="ui checkbox">
+                <input type="checkbox" id="recommended" name="recommended" class="hidden">
+                <label for="recommended">Recommend</label>
+              </div>
+            </div>
+            <div class="field">
+              <button type="button" id="search-btn" class="ui basic teal button"><i class="ui search icon"></i>Search</button>
+            </div>
+          </div>
+        </div>
+      
+	  <div id="table-container">
+	  	<table th:fragment="blogList" class="ui compact table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Recommend</th>
+            <th>State</th>
+            <th>Update Time</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="blog,iterStat: ${page.content}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${blog.title}">C++ Study</td>
+            <td th:text="${blog.type.name}">Programming</td>
+            <td th:text="${blog.recommended} ? 'Yes' : 'No' ">Yes</td>
+            <td th:text="${blog.published} ? 'Published' : 'Draft' "></td>
+            <td th:text="${blog.updateTime}"></td>
+            <td>
+              <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui basic mini teal button">Edit</a>
+              <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui basic mini red button">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="7">
+              <a href="#" th:href="@{/admin/blogs/input}" class="ui right floated small primary teal basic button">
+                <i class="blogger icon"></i> New Blog
+              </a>
+              <div class="ui mini pagination menu" th:if="${page.totalPages} > 1">
+              	<a onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}" class="item">
+                	Previous
+              	</a>
+              	<a onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}" class="item">
+                	Next
+              	</a>
+              </div>
+              
+            </th>
+          </tr>
+        </tfoot>
+      	</table>
+	  	
+	  	<div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+	  		<i class="close icon"></i>
+	  		<p th:text="${message}">hhh</p>
+	  	</div>
+	  	
+	  </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+  <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+      <div class="ui divided inverted grid">
+        <div class="three wide column">
+          <img src="../../static/images/witcher_logo.jpg" class="ui round image" alt="icon" style="width: 100px">
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Recent Blogs</h5>
+          <div class="ui inverted link list">
+            <a href="#" class="item m-padded-tb-tiny" style="margin: 0px;">Merry Christmas!</a>
+            <a href="#" class="item">Happy New Year!</a>
+            <a href="#" class="item">Happy New Year!</a>
+          </div>
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Contact Me</h5>
+          <div class="ui inverted link list">
+            <p class="item m-padded-tb-tiny" style="margin: 0px;">Email: cai@gmail.com</p>
+            <p class="item">Phone: 123456</p>
+          </div>
+        </div>
+        <div class="five wide column center aligned">
+          <h5 class="ui inverted header">Michael Cai</h5>
+          <div class="ui inverted link list">
+            <p class="item">Keep humble, keep thirsty.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <p>May there be enough clouds in your life to make a beautiful sunset.</p>
+    </div>
+  </footer>
+
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+  $('.ui.dropdown')
+    .dropdown()
+    ;
+  
+  function page(obj) {
+	  $("[name='page']").val($(obj).data("page"));
+	  loadData();
+  }
+  
+  
+  $("#search-btn").click(function() {
+	  $("[name='page']").val(0);
+	  loadData();
+  });
+  
+  
+  $('.message .close')
+	.on('click', function () {
+		$(this)
+		 .closest('.message')
+		 .transition('fade');
+	});
+  
+  $('#clear-btn')
+  	.on('click', function() {
+  		$('.ui.type.dropdown')
+  		  .dropdown('clear');
+  	});
+  
+  function loadData() {
+	  $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+		  title : $("[name='title']").val(),
+		  typeId : $("[name='typeId']").val(),
+		  recommended : $("[name='recommended']").prop('checked'),
+		  page : $("[name='page']").val()
+	  });
+	  
+  }
+  
+  
+  
+</script>
+
+</html>

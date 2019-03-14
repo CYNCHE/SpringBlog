@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tag</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui-2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/me.css" type="text/css" th:href="@{/css/me.css}">
+  <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+</head>
+
+
+
+
+
+
+
+<body>
+
+  <nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+      <div class="ui stackable inverted secondary menu">
+        <h2 class="ui teal header item">Dashboard</h2>
+        <a href="#" class="item"><i class="blogger icon small"></i>Blogs</a>
+        <a href="#" class="item"><i class="idea icon small"></i>Classification</a>
+        <a href="#" class="item"><i class="tags icon small"></i>Tags</a>
+
+        <div class="right menu">
+          <div class="ui dropdown item">
+            <div class="text">
+              <img src="https://picsum.photos/100/100?image=66" alt="avatar" class="ui avatar image"> Michael
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              <a href="#" class="item">Log Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="ui attached pointing menu">
+    <div class="ui container">
+      <div class="right menu">
+        <a href="#" th:href="@{/admin/tags/input}" class="active teal item">Publish</a>
+        <a href="#" th:href="@{/admin/tags}" class="item">List</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-margin-tb-large m-padded-tb-large m-small-container">
+    <div class="ui container">
+      <form action="#" method="post" th:object="${tag}" th:action="@{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}" class="ui form">
+        <!-- <input type="hidden" name="id" th:value="*{id}"> -->
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+
+
+        <div class="field">
+          <div class="ui fluid left labeled input">
+            <div class="ui compact teal basic label">Name</div>
+            <input type="text" name="name" placeholder="Tag Name" th:value="*{name}">
+          </div>
+        </div>
+
+       
+       
+
+        <div class="ui error message"></div>
+		<!--/*/
+		<div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+		  <i class="close icon"></i>
+		  <div class="header">Validation failed</div>
+		  <p th:errors="*{name}"></p>
+		</div>
+		/*/-->
+		
+		
+		
+		
+		
+		
+        <div class="right aligned ui container">
+          <button class="ui button" onclick="window.history.go(-1)">Return</button>
+          <button class="ui basic teal submit button">Publish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+
+
+  <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+      <div class="ui divided inverted grid">
+        <div class="three wide column">
+          <img src="../../static/images/witcher_logo.jpg" class="ui round image" alt="icon" style="width: 100px">
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Recent Blogs</h5>
+          <div class="ui inverted link list">
+            <a href="#" class="item m-padded-tb-tiny" style="margin: 0px;">Merry Christmas!</a>
+            <a href="#" class="item">Happy New Year!</a>
+            <a href="#" class="item">Happy New Year!</a>
+          </div>
+        </div>
+        <div class="four wide column">
+          <h5 class="ui inverted header">Contact Me</h5>
+          <div class="ui inverted link list">
+            <p class="item m-padded-tb-tiny" style="margin: 0px;">Email: cai@gmail.com</p>
+            <p class="item">Phone: 123456</p>
+          </div>
+        </div>
+        <div class="five wide column center aligned">
+          <h5 class="ui inverted header">Michael Cai</h5>
+          <div class="ui inverted link list">
+            <p class="item">Keep humble, keep thirsty.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <p>May there be enough clouds in your life to make a beautiful sunset.</p>
+    </div>
+  </footer>
+</body>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js"></script>
+
+
+<script>
+  var contentEditor;
+  $(function() {
+    contentEditor = editormd("md-content", {
+      width : "100%",
+      height : 640,
+      syncScrolling : "single",
+      path : "../../static/lib/editormd/lib/"
+    });
+  });
+
+
+  $('.ui.dropdown')
+    .dropdown()
+  ;
+
+  $('.ui.form')
+    .form({
+      fields: {
+        title: {
+          identifier  : 'name1',
+          rules : [
+            {
+              type  : 'empty',
+              prompt  : 'The type name can not be empty!'
+            }
+          ]
+          
+        }
+      }
+    })
+  ;
+
+
+</script>
+
+</html>

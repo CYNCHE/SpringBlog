@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/_fragments :: head(~{::title})">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Input</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<link rel="stylesheet" href="../../static/css/me.css" type="text/css">
+<link rel="stylesheet"
+	href="../../static/lib/editormd/css/editormd.min.css">
+<link rel="shortcut icon"
+	href="https://pandao.github.io/editor.md/favicon.ico"
+	type="image/x-icon" />
+</head>
+
+
+
+
+
+
+
+<body>
+	<nav th:replace="admin/_fragments :: menu(1)"
+		class="ui inverted attached segment m-padded-tb-mini">
+		<div class="ui container">
+			<div class="ui stackable inverted secondary menu">
+				<h2 class="ui teal header item">Dashboard</h2>
+				<a href="#" class="item"><i class="blogger icon small"></i>Blogs</a>
+				<a href="#" class="item"><i class="idea icon small"></i>Classification</a>
+				<a href="#" class="item"><i class="tags icon small"></i>Tags</a>
+
+				<div class="right menu">
+					<div class="ui dropdown item">
+						<div class="text">
+							<img src="https://picsum.photos/100/100?image=66" alt="avatar"
+								class="ui avatar image"> Michael
+						</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<a href="#" class="item">Log Out</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="ui attached pointing menu">
+		<div class="ui container">
+			<div class="right menu">
+				<a href="#" th:href="@{/admin/blogs/input}" class="active teal item">Publish</a>
+				<a href="#" th:href="@{/admin/blogs}" class="item">List</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="m-margin-tb-large m-padded-tb-large m-small-container">
+		<div class="ui container">
+			<form id="blog-form" action="#" th:object="${blog}"
+				th:action="@{/admin/blogs}" method="post" class="ui form">
+				<input type="hidden" name="published"> <input type="hidden"
+					name="id" th:value="*{id}">
+
+				<div class="field">
+					<div class="ui left labeled input">
+						<div class="ui compact teal basic selection dropdown label"
+							style="z-index: 6;">
+							<input type="hidden" value="original" name="flag"
+								th:value="*{flag}"> <i class="dropdown icon"></i>
+							<div class="default text">Original</div>
+							<div class="menu" style="z-index: 6;">
+								<div class="item" data-value="original">Original</div>
+								<div class="item" data-value="reprint">Reprint</div>
+								<div class="item" data-value="translation">Translation</div>
+							</div>
+						</div>
+						<input type="text" name="title" placeholder="Title"
+							th:value="*{title}">
+					</div>
+				</div>
+
+
+
+				<div class="required field">
+					<div id="md-content" style="z-index: 2;">
+						<textarea id="content" name="content" th:text="*{content}"
+							placeholder="Content" rows="20"></textarea>
+					</div>
+				</div>
+				
+				<div class="required field">
+					<textarea id="summary" name="summary" th:text="*{summary}"
+						placeholder="Summary" rows="5"></textarea>
+				</div>
+				
+				
+				
+				<div class="field">
+					<div class="ui fluid left labeled input">
+						<div class="ui compact teal basic label">Link to the first
+							image</div>
+						<input type="text" name="firstPicture" th:value="*{firstPicture}"
+							placeholder="URL">
+					</div>
+				</div>
+
+				<div class="two fields">
+					<div class="required field">
+						<div class="ui fluid left labeled action input">
+							<label class="ui compact teal basic label">Classification</label>
+							<div class="ui fluid selection dropdown">
+								<input type="hidden" name="type.id"
+									th:value="*{type} != null ? *{type.id}"> <i
+									class="dropdown icon"></i>
+								<div class="default text">Types</div>
+								<div class="menu">
+									<div th:each="type : ${types}" class="item" data-value="1"
+										th:data-value="${type.id}" th:text="${type.name}"></div>
+									<!-- <div class="item" data-value="1">Error Log</div> -->
+									<!-- <div class="item" data-value="2">Develop Guide</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="field">
+						<div class="ui left labeled action input">
+							<label class="ui teal basic label">Tag</label>
+							<div class="ui multiple search fluid selection dropdown">
+								<input type="hidden" name="tagIds" th:value="*{tagIds} ">
+								<i class="dropdown icon"></i>
+								<div class="default text">Tag</div>
+								<div class="menu">
+									<div th:each="tag : ${tags}" class="item" data-value="1"
+										th:data-value="${tag.id}" th:text="${tag.name}"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="inline fields">
+					<div class="field">
+						<div class="ui checkbox">
+							<input type="checkbox" id="recommended" name="recommended"
+								th:checked="*{recommended}" class="hidden"> <label
+								for="recommended">Recommend</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui checkbox">
+							<input type="checkbox" id="commentable" name="commentable"
+								th:checked="*{commentable}" class="hidden"> <label
+								for="commentable">Comment</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui error message"></div>
+
+				<div class="right aligned ui container">
+					<button type="button" class="ui button"
+						onclick="window.history.go(-1)">Return</button>
+					<button type="button" id="save-btn" class="ui button">Save</button>
+					<button type="button" id="publish-btn" class="ui basic teal button">Publish</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+
+	<footer th:replace="admin/_fragments :: footer"
+		class="ui inverted vertical segment m-padded-tb-massive">
+		<div class="ui center aligned container">
+			<div class="ui divided inverted grid">
+				<div class="three wide column">
+					<img src="../../static/images/witcher_logo.jpg"
+						class="ui round image" alt="icon" style="width: 100px">
+				</div>
+				<div class="four wide column">
+					<h5 class="ui inverted header">Recent Blogs</h5>
+					<div class="ui inverted link list">
+						<a href="#" class="item m-padded-tb-tiny" style="margin: 0px;">Merry
+							Christmas!</a> <a href="#" class="item">Happy New Year!</a> <a
+							href="#" class="item">Happy New Year!</a>
+					</div>
+				</div>
+				<div class="four wide column">
+					<h5 class="ui inverted header">Contact Me</h5>
+					<div class="ui inverted link list">
+						<p class="item m-padded-tb-tiny" style="margin: 0px;">Email:
+							cai@gmail.com</p>
+						<p class="item">Phone: 123456</p>
+					</div>
+				</div>
+				<div class="five wide column center aligned">
+					<h5 class="ui inverted header">Michael Cai</h5>
+					<div class="ui inverted link list">
+						<p class="item">Keep humble, keep thirsty.</p>
+					</div>
+				</div>
+			</div>
+			<div class="ui inverted divider"></div>
+			<p>May there be enough clouds in your life to make a beautiful
+				sunset.</p>
+		</div>
+	</footer>
+</body>
+
+
+
+
+
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+
+
+<script>
+	var contentEditor;
+	$(function() {
+		contentEditor = editormd("md-content", {
+			width : "100%",
+			height : 640,
+			syncScrolling : "single",
+			path : "/lib/editormd/lib/"
+		});
+	});
+
+	$('.ui.dropdown').dropdown();
+
+	$('#save-btn').click(function() {
+		$('[name="published"]').val(false);
+		$('#blog-form').submit();
+	});
+
+	$('#publish-btn').click(function() {
+		$('[name="published"]').val(true);
+		$('#blog-form').submit();
+	});
+
+	$('.ui.form')
+			.form(
+					{
+						fields : {
+							title : {
+								identifier : 'title',
+								rules : [ {
+									type : 'empty',
+									prompt : 'Title : Please enter a title.'
+								} ]
+							},
+							content : {
+								identifier : 'content',
+								rules : [ {
+									type : 'empty',
+									prompt : 'Content : Please enter some content.'
+								} ]
+							},
+							typeId : {
+								identifier : 'typeId',
+								rules : [ {
+									type : 'empty',
+									prompt : 'Type : Please select a type for your blog.'
+								} ]
+							},
+							firstPicture : {
+								identifier : 'firstPicture',
+								rules : [ {
+									type : 'empty',
+									prompt : 'Picture : Please enter the link to your first picture.'
+								} ]
+							},
+							summary : {
+								identifier : 'summary',
+								rules : [ {
+									type : 'empty',
+									prompt : 'Summary : Please enter a brief summary to the blog.'
+								} ]
+							}
+						}
+					});
+</script>
+
+</html>
